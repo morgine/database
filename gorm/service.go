@@ -5,10 +5,10 @@ package gorm
 import (
 	"database/sql"
 	"fmt"
+	"github.com/jinzhu/gorm"
 	"github.com/morgine/cfg"
 	"github.com/morgine/database"
 	"github.com/morgine/service"
-	"gorm.io/gorm"
 )
 
 type Service struct {

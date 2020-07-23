@@ -8,5 +8,5 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.0
 	github.com/morgine/cfg v0.0.1
 	github.com/morgine/service v0.0.1
-	gorm.io/gorm v0.2.23
+	github.com/jinzhu/gorm v1.9.15
 )

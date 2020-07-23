@@ -4,7 +4,7 @@ package gorm
 
 import (
 	"database/sql"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
 	"sync"
 )
 
