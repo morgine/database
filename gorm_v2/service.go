@@ -1,14 +1,16 @@
 // Copyright 2020 morgine.com. All rights reserved.
 
-package gorm
+package gorm_v2
 
 import (
 	"database/sql"
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"github.com/morgine/cfg"
 	"github.com/morgine/database"
 	"github.com/morgine/service"
+	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type Service struct {
@@ -38,8 +40,18 @@ func (s *Service) New(ctn *service.Container) (value interface{}, err error) {
 		} else {
 			return nil, fmt.Errorf("database service [%s] not provided", env.Dialect)
 		}
+		var dialector gorm.Dialector
 		var gDB *gorm.DB
-		gDB, err = env.Init(db)
+		switch env.Dialect {
+		case "mysql":
+			dialector = mysql.New(mysql.Config{Conn: db})
+		case "postgres":
+			dialector = postgres.New(postgres.Config{Conn: db})
+		default:
+			// TODO: sqlite not yet available
+			return nil, fmt.Errorf("dialect %s not yet available", env.Dialect)
+		}
+		gDB, err = env.Init(dialector)
 		if err != nil {
 			return nil, err
 		} else {

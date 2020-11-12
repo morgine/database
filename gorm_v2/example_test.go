@@ -1,10 +1,10 @@
 // Copyright 2020 morgine.com. All rights reserved.
 
-package gorm_test
+package gorm_v2_test
 
 import (
 	"github.com/morgine/cfg"
-	"github.com/morgine/database/gorm"
+	"github.com/morgine/database/gorm_v2"
 	"github.com/morgine/database/mysql"
 	"github.com/morgine/service"
 )
@@ -35,7 +35,7 @@ max_idle_conns = 10
 [gorm]
 # 是否开启调试模式
 debug = true
-# 数据库类型(目前支持的数据库类型：mysql/sqlite3/postgres)
+# 数据库类型(目前支持的数据库类型：mysql/postgres)
 dialect = "mysql"
 # 数据库表名前缀
 table_prefix = ""
@@ -44,7 +44,7 @@ table_prefix = ""
 func ExampleNewService() {
 	var configService = cfg.NewService(cfg.NewMemoryStorageService(config))
 	var mysqlService = mysql.NewService("mysql", configService)
-	var gormService = gorm.NewService("gorm", configService, mysqlService)
+	var gormService = gorm_v2.NewService("gorm", configService, mysqlService)
 	var container = service.NewContainer()
 	defer container.Close()
 	var gormDB, err = gormService.Get(container)
